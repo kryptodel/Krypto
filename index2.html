@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEX LUTHOR ROAST #2</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&family=Press+Start+2P&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a001f;
+            color: #000;
+            font-family: 'Comic Neue', cursive;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 10px;
+            transition: all 0.6s;
+        }
+
+        .comic-container {
+            width: 100%;
+            max-width: 520px;
+            background: #fff;
+            border: 14px solid #ffd700;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .comic-inner {
+            background: repeating-linear-gradient(
+                45deg,
+                #fff,
+                #fff 20px,
+                #ffe6f0 20px,
+                #ffe6f0 40px
+            );
+            padding: 25px 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Bangers', cursive;
+            font-size: 2.8rem;
+            text-align: center;
+            color: #c8102e;
+            text-shadow: 4px 4px 0 #000,
+                        -3px -3px 0 #000;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+        }
+
+        .speech-bubble {
+            background: white;
+            border: 7px solid #000;
+            border-radius: 60px;
+            padding: 28px 25px;
+            font-size: 1.75rem;
+            text-align: center;
+            margin: 20px auto;
+            max-width: 100%;
+            box-shadow: 6px 6px 0 #000;
+            position: relative;
+            transition: all 0.4s;
+        }
+
+        .speech-bubble:after {
+            content: '';
+            position: absolute;
+            bottom: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 18px solid transparent;
+            border-top-color: #000;
+        }
+
+        .question {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 35px 0 25px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: 'Bangers', cursive;
+            font-size: 1.85rem;
+            padding: 18px 45px;
+            border: 6px solid #000;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 6px 6px 0 #000;
+            text-transform: uppercase;
+            min-width: 140px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .yes-btn { background: #e60000; }
+        .no-btn { background: #00aaff; }
+
+        .btn:hover {
+            transform: scale(1.08) rotate(2deg);
+        }
+
+        .message {
+            font-size: 1.35rem;
+            padding: 22px;
+            margin: 20px auto;
+            border: 6px solid #000;
+            background: #fff;
+            display: none;
+            text-align: center;
+            line-height: 1.4;
+            box-shadow: 6px 6px 0 #000;
+            color: #000;
+        }
+
+        .flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 20, 20, 0.85);
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.95rem;
+            color: #c8102e;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .nav-btn {
+            font-family: 'Bangers', cursive;
+            font-size: 1.5rem;
+            padding: 12px 30px;
+            background: #444;
+            color: white;
+            border: 6px solid #000;
+            box-shadow: 6px 6px 0 #000;
+            cursor: pointer;
+        }
+
+        
+        body.rainbow {
+            background: linear-gradient(90deg, 
+                #ff0000, #ff00ff, #00ffff, #00ff00, 
+                #ffff00, #ff9900, #ff00ff);
+            background-size: 800% 800%;
+            animation: rainbowFast 0.8s linear infinite;
+        }
+
+        @keyframes rainbowFast {
+            0%   { background-position: 0% 50%; }
+            100% { background-position: 800% 50%; }
+        }
+
+        .comic-container.rainbow-mode {
+            border-color: #ffffff;
+            box-shadow: 0 0 50px rgba(255,255,255,0.9);
+        }
+
+        .speech-bubble.rainbow-mode {
+            background: linear-gradient(90deg, #ff0000, #ffff00, #00ff00, #00ffff, #ff00ff);
+            background-size: 400% 400%;
+            animation: rainbowFast 0.9s linear infinite;
+            color: #000;
+            font-weight: 700;
+            border-color: #000;
+        }
+@media (max-width: 768px) {
+
+    body {
+        padding: 20px 10px;
+        align-items: flex-start;
+    }
+
+    .comic-page {
+        width: 92%;
+        max-width: 420px;
+        padding: 18px 14px;
+        border-width: 7px;
+        box-shadow:
+            0 0 0 8px #ffcc00,
+            0 0 0 11px #000;
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 18px;
+    }
+
+    .panel {
+        padding: 16px;
+        margin: 12px auto;
+        border-width: 5px;
+        box-shadow: 4px 4px 0 #000;
+    }
+
+    .speech-bubble {
+        padding: 18px;
+        border-width: 4px;
+        box-shadow: 4px 4px 0 #000;
+        font-size: 1.1rem;
+        border-radius: 30px;
+        max-width: 100%;
+        margin: 12px auto;
+    }
+
+    .speech-bubble:after {
+        border-width: 10px;
+        bottom: -15px;
+    }
+
+    .question {
+        font-size: 1.55rem;
+        line-height: 1.3;
+        margin: 0;
+    }
+
+    .buttons {
+        gap: 14px;
+        margin: 22px 0;
+    }
+
+    .btn {
+        flex: 1;
+        min-width: 120px;
+        max-width: 150px;
+        padding: 12px 0;
+        font-size: 1.35rem;
+        border-width: 5px;
+        box-shadow: 4px 4px 0 #000;
+    }
+
+    .message {
+        font-size: 1.05rem;
+        line-height: 1.5;
+        padding: 16px;
+        border-width: 4px;
+        box-shadow: 4px 4px 0 #000;
+    }
+
+    .comic-footer {
+        font-size: 0.65rem;
+        margin-top: 18px;
+    }
+
+    .next-btn {
+        width: 75%;
+        padding: 12px 0;
+        font-size: 1.3rem;
+        border-width: 5px;
+        box-shadow: 4px 4px 0 #000;
+        margin-top: 20px;
+    }
+
+}
+    </style>
+</head>
+<body>
+    <div class="comic-container" id="comicContainer">
+        <div class="comic-inner" id="comicInner">
+            <h1>LEX LUTHOR ROAST #2</h1>
+            
+            <div class="speech-bubble" id="speechBubble">
+                <div class="question">Is Lex Luthor in love with Superman?</div>
+            </div>
+
+            <div class="buttons">
+                <div class="btn yes-btn" id="yesBtn">YES</div>
+                <div class="btn no-btn" id="noBtn">NO</div>
+            </div>
+
+            <div id="yesMessage" class="message">
+                Of course not... said no one ever 😂<br><br>
+                Bro built a whole empire just to get Superman's attention. 
+                That's not rivalry, that's a situationship gone wrong 💀
+            </div>
+
+            <div id="noMessage" class="message">
+                <strong>THE SONG ALREADY SAID IT ALL...</strong><br><br>
+                Poker Face on full blast because Lex can't hide it anymore 😭🌈<br>
+                "I wanna hold 'em like they do in Texas..." — Lex probably
+            </div>
+
+            <div class="footer">
+                PAGE 2 • DON'T LIE TO YOURSELF
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="window.location.href='index.html'">← PREVIOUS PAGE</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flash" id="flash"></div>
+
+    <audio id="pokerFace" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const yesMessage = document.getElementById('yesMessage');
+        const noMessage = document.getElementById('noMessage');
+        const flash = document.getElementById('flash');
+        const audio = document.getElementById('pokerFace');
+        const body = document.body;
+        const comicContainer = document.getElementById('comicContainer');
+        const speechBubble = document.getElementById('speechBubble');
+
+        function triggerRedFlash() {
+            flash.style.opacity = '0.9';
+            setTimeout(() => flash.style.opacity = '0', 160);
+        }
+
+        function highlightYes() {
+            yesBtn.style.boxShadow = '0 0 0 8px #ffd700';
+            yesBtn.style.transform = 'scale(1.12)';
+            setTimeout(() => {
+                yesBtn.style.boxShadow = '6px 6px 0 #000';
+                yesBtn.style.transform = 'scale(1)';
+            }, 400);
+        }
+
+        
+        yesBtn.addEventListener('click', () => {
+            audio.pause();
+            body.classList.remove('rainbow');
+            comicContainer.classList.remove('rainbow-mode');
+            speechBubble.classList.remove('rainbow-mode');
+            
+            yesMessage.style.display = 'block';
+            noMessage.style.display = 'none';
+            highlightYes();
+        });
+
+        noBtn.addEventListener('click', () => {
+            triggerRedFlash();
+            
+            body.classList.add('rainbow');
+            comicContainer.classList.add('rainbow-mode');
+            speechBubble.classList.add('rainbow-mode');
+            
+            noBtn.style.transform = 'scale(0.7) rotate(-12deg)';
+            
+            setTimeout(() => {
+                noBtn.style.transform = 'scale(1) rotate(0)';
+                highlightYes();
+                
+                yesMessage.style.display = 'none';
+                noMessage.style.display = 'block';
+                
+                audio.currentTime = 0;
+                audio.play().catch(() => {});
+            }, 250);
+        });
+      
+        document.addEventListener('keydown', (e) => {
+            if (e.key.toLowerCase() === 'n') noBtn.click();
+            if (e.key.toLowerCase() === 'y') yesBtn.click();
+        });
+    </script>
+</body>
+  </html>
