@@ -1,34 +1,236 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Lex Investigation</title>
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Luckiest+Guy&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle,#ffe66d,#ff9f1c);font-family:'Luckiest Guy',cursive;overflow:hidden}
-body:before{content:"";position:fixed;inset:0;background-image:radial-gradient(rgba(0,0,0,.15) 1.5px,transparent 1.5px);background-size:22px 22px}
-.card{position:relative;z-index:1;background:#fff;border:6px solid #000;border-radius:24px;box-shadow:12px 12px #000;width:min(92vw,720px);padding:28px;text-align:center}
-.badge{display:inline-block;background:#ff3b30;color:#fff;border:4px solid #000;padding:8px 16px;border-radius:14px;transform:rotate(-4deg)}
-h1{font-family:Bangers,cursive;font-size:clamp(2.4rem,7vw,4.5rem);margin:.4em 0;letter-spacing:2px}
-p{font-size:clamp(1.1rem,3vw,1.6rem)}
-.buttons{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:24px}
-button{font:inherit;font-size:1.5rem;padding:14px 30px;border:5px solid #000;border-radius:16px;cursor:pointer;box-shadow:6px 6px #000;transition:.15s}
-button:hover{transform:translateY(-3px) scale(1.04)}button:active{transform:translateY(3px);box-shadow:2px 2px #000}
-#yes{background:#6cff75}#no{background:#ff7373}
-#msg{min-height:90px;margin-top:24px;font-size:1.15rem;line-height:1.5}
-.pop{position:fixed;font-family:Bangers,cursive;font-size:2rem;pointer-events:none;animation:pop .8s forwards}
-@keyframes pop{to{transform:translateY(-80px) scale(1.6);opacity:0}}
-.shake{animation:shake .4s}@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
-</style></head><body>
-<div class="card">
-<div class="badge">BREAKING NEWS!</div>
-<h1>THE LEX INVESTIGATION</h1>
-<p>After extensive research, countless debates, and absolutely zero bias...</p>
-<p><b>Is Lex Luthor ugly?</b></p>
-<div class="buttons"><button id="yes">YES</button><button id="no">NO</button></div>
-<div id="msg"></div>
-</div>
-<script>
-const y=document.getElementById('yes'),n=document.getElementById('no'),m=document.getElementById('msg');
-function boom(t){let d=document.createElement('div');d.className='pop';d.textContent=t;d.style.left=(innerWidth/2-30+Math.random()*120-60)+'px';d.style.top=(innerHeight/2-20)+'px';document.body.appendChild(d);setTimeout(()=>d.remove(),800);}
-y.onclick=()=>{boom("POW!");m.innerHTML="🏆 <b>Correct!</b><br><br>After reviewing all available evidence, the jury has unanimously agreed that your answer is scientifically accurate.";};
-n.onclick=()=>{n.classList.add('shake');setTimeout(()=>n.classList.remove('shake'),400);y.animate([{transform:'scale(1)'},{transform:'scale(1.2)'},{transform:'scale(1)'}],{duration:300});boom("NOPE!");m.innerHTML="🚨 <b>ERROR 404: Valid Opinion Not Found.</b><br><br>Our experts carefully reviewed your answer and immediately replaced it with <b>'YES'</b> for quality assurance purposes.";};
-</script></body></html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEX LUTHOR SPECIAL EDITION</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Creepster&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Creepster&family=Press+Start+2P&display=swap');
+        
+        body {
+            background: linear-gradient(45deg, #1a1a1a, #4a1a1a);
+            font-family: 'Bangers', cursive;
+            overflow: hidden;
+        }
+        
+        .comic-panel {
+            border: 8px solid #fff;
+            box-shadow: 0 0 0 12px #000,
+                        0 0 0 16px #ffcc00;
+            background: #fff;
+            position: relative;
+        }
+        
+        .comic-panel::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: repeating-radial-gradient(circle, #000 0px, transparent 2px, transparent 4px);
+            opacity: 0.1;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .speech-bubble {
+            position: relative;
+            background: #fff;
+            border: 6px solid #000;
+            padding: 20px;
+            font-size: 2.5rem;
+            line-height: 1.1;
+            text-transform: uppercase;
+            box-shadow: 8px 8px 0 #000;
+        }
+        
+        .speech-bubble:after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: 50px;
+            border: 15px solid transparent;
+            border-top-color: #fff;
+            border-bottom: 0;
+        }
+        
+        .title {
+            font-family: 'Creepster', cursive;
+            font-size: 4.5rem;
+            color: #ff0000;
+            text-shadow: 
+                6px 6px 0 #000,
+                -4px -4px 0 #000,
+                4px -4px 0 #000,
+                -4px 4px 0 #000;
+            letter-spacing: 4px;
+        }
+        
+        .button-yes {
+            transition: all 0.1s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+        }
+        
+        .button-yes:active {
+            transform: scale(1.3) rotate(8deg);
+        }
+        
+        .no-button {
+            position: relative;
+        }
+        
+        .explosion {
+            animation: explode 0.4s forwards;
+        }
+        
+        @keyframes explode {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.8) rotate(15deg); }
+            100% { transform: scale(0.1); opacity: 0; }
+        }
+        
+        .halftone {
+            background-image: 
+                radial-gradient(circle, #000 1px, transparent 1px);
+            background-size: 6px 6px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6 relative">
+    <!-- Background effects -->
+    <div class="absolute inset-0 halftone opacity-10 pointer-events-none"></div>
+    
+    <div class="max-w-2xl w-full comic-panel mx-auto">
+        <!-- Header -->
+        <div class="bg-red-600 text-white text-center py-6 border-b-8 border-black">
+            <h1 class="title">LEX LUTHOR EDITION</h1>
+            <p class="text-2xl tracking-widest -mt-3">DC COMICS PRESENTS...</p>
+        </div>
+        
+        <!-- Main content -->
+        <div class="p-12 bg-white relative">
+            <!-- Question bubble -->
+            <div class="max-w-lg mx-auto mb-12">
+                <div class="speech-bubble text-center mx-auto" style="max-width: 520px;">
+                    <p class="text-5xl leading-none">IS LEX LUTHOR UGLY?</p>
+                </div>
+            </div>
+            
+            <!-- Buttons -->
+            <div class="flex flex-col sm:flex-row gap-8 justify-center items-center mb-16">
+                <!-- YES Button -->
+                <button onclick="selectYes()" 
+                        class="button-yes bg-yellow-400 hover:bg-yellow-300 text-black text-5xl px-16 py-8 border-8 border-black font-bold tracking-widest shadow-2xl">
+                    YES
+                </button>
+                
+                <!-- NO Button -->
+                <button id="noBtn"
+                        onclick="tryNo()"
+                        class="no-button bg-red-500 hover:bg-red-600 text-white text-5xl px-16 py-8 border-8 border-black font-bold tracking-widest shadow-2xl">
+                    NO
+                </button>
+            </div>
+            
+            <!-- Result area -->
+            <div id="result" class="min-h-[180px] text-center hidden">
+                <div id="message" class="speech-bubble mx-auto max-w-md text-3xl font-bold"></div>
+            </div>
+        </div>
+        
+        <!-- Footer comic style -->
+        <div class="bg-black text-yellow-300 py-4 text-center text-xl border-t-8 border-white flex items-center justify-center gap-4">
+            <span>★</span>
+            <span>YOU CAN'T ESCAPE THE TRUTH</span>
+            <span>★</span>
+        </div>
+    </div>
+    
+    <!-- Floating comic effects -->
+    <div class="absolute top-10 left-10 text-6xl opacity-20 pointer-events-none">BOOM!</div>
+    <div class="absolute bottom-20 right-10 text-6xl opacity-20 pointer-events-none rotate-12">POW!</div>
+    
+    <script>
+        function selectYes() {
+            const result = document.getElementById('result');
+            const message = document.getElementById('message');
+            
+            result.classList.remove('hidden');
+            message.innerHTML = `
+                <span class="text-green-600">CORRECT CHOICE, CITIZEN!</span><br>
+                <span class="text-4xl">Lex Luthor is BALD and UGLY AF 😂</span>
+            `;
+            message.style.backgroundColor = "#fff";
+            confettiBurst();
+        }
+        
+        function tryNo() {
+            const noBtn = document.getElementById('noBtn');
+            
+            // Visual explosion on NO button
+            noBtn.classList.add('explosion');
+            
+            // Force select YES after a tiny delay
+            setTimeout(() => {
+                noBtn.classList.remove('explosion');
+                selectYesButDifferent();
+            }, 180);
+        }
+        
+        function selectYesButDifferent() {
+            const result = document.getElementById('result');
+            const message = document.getElementById('message');
+            
+            result.classList.remove('hidden');
+            message.innerHTML = `
+                <span class="text-red-600">NICE TRY, LOSER!</span><br>
+                <span class="text-4xl">Even you know Lex is HIDEOUS 😂<br>
+                Bald villain with a superiority complex!</span>
+            `;
+            message.style.backgroundColor = "#fee2e2";
+            confettiBurst();
+        }
+        
+        function confettiBurst() {
+            // Simple confetti using emoji
+            for (let i = 0; i < 60; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.textContent = ['💥', '😂', '🦸', '👨‍🦲', '💀'][Math.floor(Math.random()*5)];
+                    confetti.style.position = 'fixed';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-50px';
+                    confetti.style.fontSize = '2rem';
+                    confetti.style.zIndex = '9999';
+                    confetti.style.transition = 'all 3s';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.style.transform = `translateY(\( {window.innerHeight + 100}px) rotate( \){Math.random()*800}deg)`;
+                        confetti.style.opacity = '0';
+                    }, 50);
+                    
+                    setTimeout(() => confetti.remove(), 3500);
+                }, i * 8);
+            }
+        }
+        
+        // Easter egg: press "L" for extra laughs
+        document.addEventListener('keydown', (e) => {
+            if (e.key.toLowerCase() === 'l') {
+                const result = document.getElementById('result');
+                if (result.classList.contains('hidden')) {
+                    const message = document.getElementById('message');
+                    result.classList.remove('hidden');
+                    message.innerHTML = `LEX LUTHOR IS SO UGLY EVEN SUPERMAN FEELS BAD FOR HIM 😂`;
+                    confettiBurst();
+                }
+            }
+        });
+        
+        // Tailwind script already included via CDN
+    </script>
+</body>
+</html>
