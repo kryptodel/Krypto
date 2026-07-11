@@ -25,7 +25,6 @@
             position: relative;
         }
 
-        /* Comic page border */
         .comic-page {
             width: 95%;
             max-width: 800px;
@@ -211,7 +210,6 @@
             transform: translateY(-3px);
         }
 
-        /* Mobile */
 @media (max-width: 768px) {
 
     body {
@@ -364,18 +362,15 @@
             }, 300);
         }
 
-        // Yes button - normal
         yesBtn.addEventListener('click', () => {
             yesMessage.style.display = 'block';
             noMessage.style.display = 'none';
             selectYes();
         });
 
-        // No button - forces Yes with drama
         noBtn.addEventListener('click', () => {
             triggerRedFlash();
-            
-            // Fake selection animation
+
             noBtn.style.transition = 'all 0.3s';
             noBtn.style.transform = 'scale(0.6) rotate(-15deg)';
             
@@ -383,13 +378,11 @@
                 selectYes();
                 noBtn.style.transform = 'scale(1) rotate(0deg)';
                 
-                // Show the "No" message (which still roasts him)
                 yesMessage.style.display = 'none';
                 noMessage.style.display = 'block';
             }, 220);
         });
 
-        // Keyboard support for fun
         document.addEventListener('keydown', (e) => {
             if (e.key === 'n' || e.key === 'N') {
                 noBtn.click();
@@ -398,8 +391,7 @@
                 yesBtn.click();
             }
         });
-
-        // Make it extra comic-y with some random panel shakes
+                
         setTimeout(() => {
             document.querySelector('.comic-page').style.transition = 'transform 0.4s';
         }, 800);
